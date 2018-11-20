@@ -1,0 +1,95 @@
+@font-face {
+    font-family: 'iconfont';  /* project id 858301 */
+    src: url('https://at.alicdn.com/t/font_858301_9sj19ys45cn.eot');
+    src: url('https://at.alicdn.com/t/font_858301_9sj19ys45cn.eot?#iefix') format('embedded-opentype'),
+    url('https://at.alicdn.com/t/font_858301_9sj19ys45cn.woff') format('woff'),
+    url('https://at.alicdn.com/t/font_858301_9sj19ys45cn.ttf') format('truetype'),
+    url('https://at.alicdn.com/t/font_858301_9sj19ys45cn.svg#iconfont') format('svg');
+  }
+
+  .iconfont{
+    font-family:"iconfont" !important;
+    color:blue;
+    font-size:24px;
+    line-height: 24px;
+    font-style:normal;
+    -webkit-font-smoothing: antialiased;
+    -webkit-text-stroke-width: 0.2px;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.step-items{
+    display: flex;
+    width: 360px;
+    &:nth-last-child(1){
+        .step-item-right{
+            &::after{
+                display: none;
+            }
+        }
+    }
+    .dp-icon{
+        margin-right: 10px;
+        width: 24px;
+        height: 24px;
+        text-align: center;
+    }
+    .dp-steps-current{
+        color: #ffffff;
+        border-radius: 24px;
+        background: blue;
+    }
+    .dp-steps-undone{
+        color: rgba(0, 0, 0, 0.25);
+        border-radius: 24px;
+        border: 1px solid rgba(0, 0, 0, 0.25);
+    }
+    .step-item-right{
+       flex: 1; 
+       width: 326px;
+       position: relative;
+        &::after{
+            content: '';
+            height: 1px;
+            width: 275px;
+            background: #e8e8e8;
+            display: block;
+            position: absolute;
+            top: 12px;
+            left: 11%;
+        }
+
+        ul{
+            position: relative;
+            .dp-remark-li{
+                position: relative;
+                word-break: break-all;
+                max-height: 50px;
+                line-height: 25px;
+                overflow: hidden;
+                .dp-ellips{
+                    position: absolute;
+                    right: 0;
+                    bottom: 0;
+                    z-index: 10;
+                    padding:0 10px 1px 40px;
+                    text-align: center;
+                    background: url(http://newimg88.b0.upaiyun.com/newimg88/2014/09/ellipsis_bg.png) repeat-y;
+                }
+               
+              }
+              .dp-copy-li{
+                //   display: none;
+                  height: auto;
+                  line-height: 25px;
+                  position: absolute;
+                  bottom: 0;
+                  z-index: 666;
+                  opacity: 0;
+                  width: 100%;  
+              }
+        }
+
+
+    }
+}

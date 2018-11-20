@@ -1,0 +1,10 @@
+node_modules/
+npm-debug.log
+public/app.*.css
+public/scripts
+public/img
+public/index.html
+.idea
+yarn-error.log
+package-lock.json
+.DS_Store
