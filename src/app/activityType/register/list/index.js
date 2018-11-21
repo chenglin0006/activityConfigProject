@@ -89,24 +89,18 @@ class RegisterList extends Component {
             // {name:'批量删除',type:'primary',id:'deleteMemberBtn',actionFun:'deleteFun'}
         ];
         let columns = [
-            {title: '系统名称', dataIndex: 'sysName', width: 100},
-            {title: '系统code', dataIndex: 'sysCode', width: 100},
-            {title: '系统访问接口名称', dataIndex: 'sysUrl', width: 200,render(text, record) {
-                    let value = text;
-                    let maxLength = 30
-                    if(text && text.length > maxLength) {
-                        value = text.substring(0, maxLength) + '...';
-                    }
-                    let isShowTitle = text ? (text.length > maxLength ? true : false) : false;
-                    return (<span title={isShowTitle ? text : ''}>{value}</span>);
-                }},
-            {title: '状态', dataIndex: 'status', width: 100,render:(text)=>{
-                    return text==1?'启用':'禁用'
-                }},
+            {title: '页面id', dataIndex: 'sysName'},
+            {title: '页面名称', dataIndex: 'sysCode'},
+            {title: '页面链接', dataIndex: 'sysUrl'},
+            {title: '页面背景图', dataIndex: 'test',render: (text) =>{
+                    return <img style={{cursor:'pointer',height:'60px'}} src={text} />}},
+            {title: '分享标题', dataIndex: 'sysUrl1'},
+            {title: '分享描述', dataIndex: 'sysUrl2'},
+            {title: '分享log', dataIndex: 'sysUrl2',render: (text) =>{
+                    return <img style={{cursor:'pointer',height:'60px'}} src={text} />}},
             {
                 title: '操作',
                 dataIndex: 'edit',
-                width: 100,
                 fixed: tableDataSource&&tableDataSource.length?'right':'none',
                 render: (text, record) => {
                     return (
