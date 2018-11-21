@@ -19,6 +19,7 @@ export const newData = [
         isUploadDefine:false,  //是否是自定义的照片墙
         showPicListDealDiv:false,
         fileSizeLimit:3,
+        notNull:true,
         uploadImgLimitNumber:1 //可上传图片张数
     },{
         id: 'shareText1',
@@ -30,7 +31,8 @@ export const newData = [
         isRequired: true,
     },{
         type:'uploadImg',
-        name: '分享图片链接',
+        name: '分享图片log',
+        notNull:true,
         disabled: true,   //是否可点
         id: 'sharePic',       //用来标识该组件，一个页面上可以有多个上传图片组件
         fileList:[],      //用来存放上传的图片列表
