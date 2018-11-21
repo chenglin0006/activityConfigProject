@@ -1,7 +1,7 @@
 //获取列表
-export let getSummaryReportList = (argus) => {
+export let getRegisterList = (argus) => {
     return {
-        type: 'GET_SUMMARY_REPORT_LIST',
+        type: 'GET_REGISTER_LIST',
         playload: {
             url: '/token/search',
             type: 'post',
@@ -12,8 +12,8 @@ export let getSummaryReportList = (argus) => {
     }
 }
 
-export let updateGetSummaryReportListStatus = () => {
+export let updateGetRegisterListStatus = () => {
     return {
-        type: 'UPDATE_GET_SUMMARY_REPORT_LIST_STATUS'
+        type: 'UPDATE_GET_REGISTER_LIST_STATUS'
     }
 }

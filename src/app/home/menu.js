@@ -8,6 +8,11 @@ export let mockmenu = [
                 name:'积分兑换活动',
                 icon:'appstore',
                 url:'/activity-credit-list'
+            },
+            {
+                name:'注册报名活动',
+                icon:'appstore',
+                url:'/activity-register-list'
             }
         ]
 	}

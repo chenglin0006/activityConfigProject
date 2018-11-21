@@ -3,6 +3,9 @@ import React from "react";
 // import CreditList from '../activityType/creditExchange/list/index';
 // import NewCredit from '../activityType/creditExchange/new/index';
 
+// import RegisterList from '../activityType/register/list/index';
+// import NewRegister from '../activityType/register/new/index';
+
 const MyLoadingComponent = ({ isLoading, error }) => {
     // Handle the loading state
     if (isLoading) {
@@ -25,8 +28,18 @@ const NewCredit = Loadable({
     loader: () => import('../activityType/creditExchange/new/index'),
     loading: MyLoadingComponent
 });
+const RegisterList = Loadable({
+    loader: () => import('../activityType/register/list/index'),
+    loading: MyLoadingComponent
+});
+const NewRegister = Loadable({
+    loader: () => import('../activityType/register/new/index'),
+    loading: MyLoadingComponent
+});
 
 export {
     CreditList,
-    NewCredit
+    NewCredit,
+    RegisterList,
+    NewRegister
 }

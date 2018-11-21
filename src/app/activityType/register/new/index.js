@@ -8,49 +8,25 @@ import * as Util from '../../../../util/';
 import Loader from '../../../../components/loader/';
 import {newData} from './data';
 import Toast from "../../../../components/prompt/toast";
-import DialogForm from '../../../../components/dialog/dialogForm/index'
 
 const WrappedAdvancedNew=Form.create()(New);
-const WrappedAdvancedDialog=Form.create()(DialogForm);
-var showDialogFormStatus = false;
 
-class NewSummaryReport extends Component {
+class NewRegister extends Component {
     constructor(props) {
         super(props);
-        this._previewFun = this._previewFun.bind(this);
+        this._refreshListFun = this._refreshListFun.bind(this);
         this.state = {
             id:0,
-            type:'', //''==新建，detail=详情, edit=编辑
-            dialogFormConfig:{
-                title:'查看效果',
-                formData:[],
-                dialogWidth:500,
-                dialogHeight:300,
-                dialogButton:[]
-            }
+            type:'' //''==新建，detail=详情, edit=编辑
         }
     }
 
-    _previewFun(data){
-        console.log(data);
-        showDialogFormStatus = true;
-        let configObj = this.state.dialogFormConfig;
-        configObj.dialogButton=[{
-                text: '取消',
-                clickHandle: () => {
-                    showDialogFormStatus = false;
-                    this.setState({});
-                }
-            },
-            {
-                text: '确认',
-                type: 'primary',
-                clickHandle: (values) => {
-                    showDialogFormStatus = false;
-                    this.setState({});
-                }
-            }]
-        this.setState({dialogFormConfig:configObj});
+    _refreshListFun(list,id){
+        newData.forEach((ele) => {
+            if (ele.id == id) {
+                ele.fileList = list;
+            }
+        })
     }
 
     componentDidMount(){
@@ -58,7 +34,8 @@ class NewSummaryReport extends Component {
         let type = Util.getUrlArg('type');
         //编辑或者查看详情
         if(id){
-            this.props.getDetailSummaryReport({id});
+            this.props.getDetailRegister({id});
+
             if(type=='detail'){
                 newData.forEach((ele)=>{
                     ele.disabled = true;
@@ -66,9 +43,6 @@ class NewSummaryReport extends Component {
             } else {
                 newData.forEach((ele)=>{
                     ele.disabled = false;
-                    if(ele.id=='sysName'){
-                        ele.disabled = true
-                    }
                 })
             }
         } else {
@@ -76,9 +50,6 @@ class NewSummaryReport extends Component {
             Util.resetInitialValue(newData);
             newData.forEach((ele)=>{
                 ele.disabled = false;
-                if(ele.id=='sysName'){
-                    ele.disabled = false
-                }
             })
         }
         this.setState({id:id,type:type})
@@ -86,10 +57,10 @@ class NewSummaryReport extends Component {
 
     componentWillUpdate (nextProps, nextState) {
         Util.fetchCallback({
-            status: nextProps.NewSummaryReport.addNewSummaryReportStatus,
-            code: nextProps.NewSummaryReport.addNewSummaryReportCode,
-            message: nextProps.NewSummaryReport.addNewSummaryReportMessage,
-            updateStatus: nextProps.updateAddNewSummaryReportStatus,
+            status: nextProps.NewRegister.addNewRegisterStatus,
+            code: nextProps.NewRegister.addNewRegisterCode,
+            message: nextProps.NewRegister.addNewRegisterMessage,
+            updateStatus: nextProps.updateAddNewRegisterStatus,
             isShowDialog: true,
             successText: '操作成功',
             successCallback: () => {
@@ -99,12 +70,12 @@ class NewSummaryReport extends Component {
 
         //获取详情初始值，并push到对应的newData中
         Util.fetchCallback({
-            status: nextProps.NewSummaryReport.getDetailSummaryReportStatus,
-            code: nextProps.NewSummaryReport.getDetailSummaryReportCode,
-            message: nextProps.NewSummaryReport.getDetailSummaryReportMessage,
-            updateStatus: nextProps.updateGetDetailSummaryReportStatus,
+            status: nextProps.NewRegister.getDetailRegisterStatus,
+            code: nextProps.NewRegister.getDetailRegisterCode,
+            message: nextProps.NewRegister.getDetailRegisterMessage,
+            updateStatus: nextProps.updateGetDetailRegisterStatus,
             successCallback: () => {
-                let data = nextProps.NewSummaryReport.getDetailSummaryReportData&&nextProps.NewSummaryReport.getDetailSummaryReportData[0];
+                let data = nextProps.NewRegister.getDetailRegisterData&&nextProps.NewRegister.getDetailRegisterData[0];
                 Util.setInitialValue(newData, data);
             }
         });
@@ -116,14 +87,14 @@ class NewSummaryReport extends Component {
             id: 'save',
             type: 'primary',
             actionSubmitAlert:true,
-            submitAlertInfo:{mainText:'确定保存Token吗？'},
+            submitAlertInfo:{mainText:'确定保存吗？'},
             clickHandle:(values)=>{
                 if(this.state.id){
                     values.id = this.state.id;
                 } else {
                     delete values.id;
                 }
-                this.props.addNewSummaryReport(values);
+                this.props.addNewRegister(values);
             }
         },
             {
@@ -144,19 +115,12 @@ class NewSummaryReport extends Component {
                 <WrappedAdvancedNew
                     newData={newData}
                     //编辑页面传递detailData,创建页面不传递detailData
-                    detailData={this.state.id?this.props.NewSummaryReport.getDetailSummaryReportData:null}
+                    detailData={this.state.id?this.props.NewRegister.getDetailRegisterData:null}
                     history={this.props.history}
                     actionButtons = {actionButtons}
-                    previewFun={this._previewFun}
+                    refreshListFun= {this._refreshListFun}
                 />
                 <Loader spinning={this.props.Fetch.spinning || false} />
-                {showDialogFormStatus?<WrappedAdvancedDialog
-                    title={this.state.dialogFormConfig.title}
-                    formData={this.state.dialogFormConfig.formData}
-                    dialogWidth={this.state.dialogFormConfig.dialogWidth}
-                    dialogButton={this.state.dialogFormConfig.dialogButton}
-                    dialogHeight={this.state.dialogFormConfig.dialogHeight}
-                />:''}
             </div>
         );
     }
@@ -164,8 +128,8 @@ class NewSummaryReport extends Component {
 
 export default connect(
     (state) => {
-        return {NewSummaryReport: state.NewSummaryReport, Fetch: state.Fetch}
+        return {NewRegister: state.NewRegister, Fetch: state.Fetch}
     },
     (dispatch) => bindActionCreators({...actions}, dispatch)
-)(NewSummaryReport);
+)(NewRegister);
 

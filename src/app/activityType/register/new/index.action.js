@@ -1,11 +1,11 @@
 //添加/编辑
-export let addNewSummaryReport = (argus) => {
+export let addNewRegister = (argus) => {
     let url = '/token/createAndInsert';
     if(argus.id){
         url = '/token/update'
     }
     return {
-        type: 'ADD_NEW_SUMMARY_REPORT',
+        type: 'ADD_NEW_REGISTER',
         playload: {
             url: url,
             type: 'post',
@@ -14,17 +14,17 @@ export let addNewSummaryReport = (argus) => {
     }
 }
 
-export let updateAddNewSummaryReportStatus = () => {
+export let updateAddNewRegisterStatus = () => {
     return {
-        type: 'UPDATE_ADD_NEW_SUMMARY_REPORT_STATUS'
+        type: 'UPDATE_ADD_NEW_REGISTER_STATUS'
     }
 }
 
 //获取详情
-export let getDetailSummaryReport = (argus) => {
+export let getDetailRegister = (argus) => {
     let url = '/token/search';
     return {
-        type: 'GET_DETAIL_SUMMARY_REPORT',
+        type: 'GET_DETAIL_REGISTER',
         playload: {
             url: url,
             type: 'post',
@@ -35,8 +35,8 @@ export let getDetailSummaryReport = (argus) => {
     }
 }
 
-export let updateGetDetailSummaryReportStatus = () => {
+export let updateGetDetailRegisterStatus = () => {
     return {
-        type: 'UPDATE_GET_DETAIL_SUMMARY_REPORT_STATUS'
+        type: 'UPDATE_GET_DETAIL_REGISTER_STATUS'
     }
 }
