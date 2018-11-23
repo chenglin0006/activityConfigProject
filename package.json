@@ -60,6 +60,7 @@
     "react-router-dom": "^4.2.2",
     "react-tree-menu": "^1.5.0",
     "redux": "^4.0.0",
+    "sortablejs": "^1.7.0",
     "whatwg-fetch": "^2.0.4"
   }
 }

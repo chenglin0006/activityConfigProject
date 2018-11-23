@@ -13,6 +13,11 @@ export let mockmenu = [
                 name:'注册报名活动',
                 icon:'appstore',
                 url:'/activity-register-list'
+            },
+            {
+                name:'拖拽demo',
+                icon:'appstore',
+                url:'/activity-drag-list'
             }
         ]
 	}

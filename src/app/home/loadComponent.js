@@ -37,9 +37,14 @@ const NewRegister = Loadable({
     loading: MyLoadingComponent
 });
 
+const NewDrag = Loadable({
+    loader: () => import('../activityType/dragDemo/new/index'),
+    loading: MyLoadingComponent
+});
 export {
     CreditList,
     NewCredit,
     RegisterList,
-    NewRegister
+    NewRegister,
+    NewDrag
 }

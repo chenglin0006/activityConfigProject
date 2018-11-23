@@ -18,7 +18,8 @@ const {
     CreditList,
     NewCredit,
     RegisterList,
-    NewRegister
+    NewRegister,
+    NewDrag
 } = LoadComponent
 let menus=[];//左侧菜单栏
 let menusUrlList = [];//左侧菜单栏对应的url列表
@@ -27,6 +28,7 @@ let allRouterList = [
     {path:'/activity-credit-new',component:NewCredit,isLeftMenu:false},
     {path:'/activity-register-list',component:RegisterList,isLeftMenu:false},
     {path:'/activity-register-new',component:NewRegister,isLeftMenu:false},
+    {path:'/activity-drag-list',component:NewDrag,isLeftMenu:false},
 ]
 class Home extends Component {
     constructor(props) {

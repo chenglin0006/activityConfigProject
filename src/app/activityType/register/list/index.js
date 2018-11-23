@@ -96,7 +96,7 @@ class RegisterList extends Component {
                     return <img style={{cursor:'pointer',height:'60px'}} src={text} />}},
             {title: '分享标题', dataIndex: 'sysUrl1'},
             {title: '分享描述', dataIndex: 'sysUrl2'},
-            {title: '分享log', dataIndex: 'sysUrl2',render: (text) =>{
+            {title: '分享log', dataIndex: 'sysUrl3',render: (text) =>{
                     return <img style={{cursor:'pointer',height:'60px'}} src={text} />}},
             {
                 title: '操作',
