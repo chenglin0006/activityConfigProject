@@ -9,18 +9,16 @@ let webpackProdConfig = merge(webpackBaseConfig, {
         rules: [
             {
                 test: /\.(less|css)$/,
-                use: ExtractTextWebpackPlugin.extract({
-                    fallback: 'style-loader',
-                    use: [
-                        'css-loader',
-                        {
-                            loader: 'less-loader',
-                            options: {
-                                modifyVars: { "@primary-color": "blue" },
-                            }
+                use: [
+                    'style-loader',
+                    'css-loader',
+                    {
+                        loader: 'less-loader',
+                        options: {
+                            modifyVars: { "@primary-color": "blue" },
                         }
-                    ]
-                })
+                    }
+                ]
             }
         ]
     },
