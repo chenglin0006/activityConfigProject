@@ -11,7 +11,8 @@ module.exports = {
     },
     output: {
         path: path.join(cwd, 'public'),
-        filename: process.env.NODE_ENV === 'development' ? 'scripts/app.js' : 'scripts/[name].[hash].js'
+        // filename: process.env.NODE_ENV === 'development' ? 'scripts/app.js' : 'scripts/[name].[hash].js'
+        filename: process.env.NODE_ENV === 'development' ? 'scripts/app.js' : 'scripts/[name].js'
     },
     resolve: {
         extensions: ['.js', '.json']
