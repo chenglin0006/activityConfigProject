@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
-import {Divider,Form} from 'antd';
+import {Divider,Form,Modal} from 'antd';
 import {filterData} from './filterData';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
@@ -18,9 +18,14 @@ class RegisterList extends Component {
         this._getRegisterList = this._getRegisterList.bind(this);
         this._addFun = this._addFun.bind(this);
         this._deleteFun = this._deleteFun.bind(this);
+        this._handlePreview = this._handlePreview.bind(this);
+        this._handleCancel = this._handleCancel.bind(this);
+
 
         this.state = {
             searchParams: {},
+            previewVisible: false,
+            previewImage: '',
             dialogFormConfig:{
                 title:'设置状态',
                 formData:[],
@@ -29,6 +34,19 @@ class RegisterList extends Component {
                 dialogButton:[]
             }
         }
+    }
+
+    //隐藏图片预览弹窗
+    _handleCancel() {
+        this.setState({previewVisible: false});
+    }
+
+    //显示图片预览弹窗
+    _handlePreview(url) {
+        this.setState({
+            previewImage: url,
+            previewVisible: true,
+        });
     }
 
     _addFun(){
@@ -93,11 +111,13 @@ class RegisterList extends Component {
             {title: '页面名称', dataIndex: 'sysCode'},
             {title: '页面链接', dataIndex: 'sysUrl'},
             {title: '页面背景图', dataIndex: 'test',render: (text) =>{
-                    return <img style={{cursor:'pointer',height:'60px'}} src={text} />}},
+                    text = 'http://res1.bnq.com.cn/banner.jpg?t=1535712016618'
+                    return <img style={{cursor:'pointer',height:'60px'}} onClick={()=>{this._handlePreview(text)}} src={text} />}},
             {title: '分享标题', dataIndex: 'sysUrl1'},
             {title: '分享描述', dataIndex: 'sysUrl2'},
             {title: '分享log', dataIndex: 'sysUrl3',render: (text) =>{
                     return <img style={{cursor:'pointer',height:'60px'}} src={text} />}},
+            {title: '埋点编码', dataIndex: 'sysUrl5'},
             {
                 title: '操作',
                 dataIndex: 'edit',
@@ -139,6 +159,9 @@ class RegisterList extends Component {
                     dialogButton={this.state.dialogFormConfig.dialogButton}
                     dialogHeight={this.state.dialogFormConfig.dialogHeight}
                 />:''}
+                <Modal className={'preview-img-modal'} visible={this.state.previewVisible} footer={null} onCancel={this._handleCancel}>
+                    <img alt="example" style={{width: '100%'}} src={this.state.previewImage}/>
+                </Modal>
             </div>
         );
     }
