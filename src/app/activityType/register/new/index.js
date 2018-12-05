@@ -83,6 +83,8 @@ class NewRegister extends Component {
                             uid:-1,
                             url:'http://res1.bnq.com.cn/banner.jpg?t=1535712016618'
                         }]
+                    }
+                    if(ele.type=='uploadImg'){
                         if(this.state.type=='detail'){
                             ele.disabled = true;
                         } else {
