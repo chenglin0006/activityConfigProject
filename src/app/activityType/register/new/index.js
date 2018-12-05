@@ -77,6 +77,19 @@ class NewRegister extends Component {
             successCallback: () => {
                 let data = nextProps.NewRegister.getDetailRegisterData&&nextProps.NewRegister.getDetailRegisterData[0];
                 Util.setInitialValue(newData, data);
+                newData.forEach((ele,index)=>{
+                    if(ele.id=='mainPic'){
+                        ele.fileList = [{
+                            uid:-1,
+                            url:'http://res1.bnq.com.cn/banner.jpg?t=1535712016618'
+                        }]
+                        if(this.state.type=='detail'){
+                            ele.disabled = true;
+                        } else {
+                            ele.disabled = false;
+                        }
+                    }
+                })
             }
         });
     }

@@ -60,13 +60,17 @@ export default class PicturesWall extends React.Component {
 
     _removeImgFun(uid){
         let list  = this.state.stateFileList;
-        list.forEach((item,index)=>{
-            if(item.uid === uid){
-                list.splice(index,1);
-            }
-        })
-        this.setState({stateFileList:list});
-        this.props.refreshList(list,this.props.id);
+        if(this.props.disabled){
+
+        } else {
+            list.forEach((item,index)=>{
+                if(item.uid === uid){
+                    list.splice(index,1);
+                }
+            })
+            this.setState({stateFileList:list});
+            this.props.refreshList(list,this.props.id);
+        }
     }
 
     _sortImgFun(index,type){
