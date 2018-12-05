@@ -14,22 +14,9 @@ import * as LoadComponent from './loadComponent'
 import New from "../components/new";
 const {Sider, Header,Content} = Layout;
 const {SubMenu} = Menu;
-const {
-    CreditList,
-    NewCredit,
-    RegisterList,
-    NewRegister,
-    NewDrag
-} = LoadComponent
 let menus=[];//左侧菜单栏
 let menusUrlList = [];//左侧菜单栏对应的url列表
-let allRouterList = [
-    {path:'/activity-credit-list',component:CreditList,isLeftMenu:false},
-    {path:'/activity-credit-new',component:NewCredit,isLeftMenu:false},
-    {path:'/activity-register-list',component:RegisterList,isLeftMenu:false},
-    {path:'/activity-register-new',component:NewRegister,isLeftMenu:false},
-    {path:'/activity-drag-list',component:NewDrag,isLeftMenu:false},
-]
+let allRouterList = LoadComponent.allRouterList;
 class Home extends Component {
     constructor(props) {
         super(props);

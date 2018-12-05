@@ -15,10 +15,15 @@ export let mockmenu = [
                 url:'/activity-register-list'
             },
             {
-                name:'拖拽demo',
+                name:'图文活动',
                 icon:'appstore',
-                url:'/activity-drag-list'
-            }
+                url:'/activity-picText-list'
+            },
+            // {
+            //     name:'拖拽demo',
+            //     icon:'appstore',
+            //     url:'/activity-drag-list'
+            // }
         ]
 	}
 ]

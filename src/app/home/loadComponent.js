@@ -6,6 +6,9 @@ import React from "react";
 // import RegisterList from '../activityType/register/list/index';
 // import NewRegister from '../activityType/register/new/index';
 
+// import PicTextList from '../activityType/picText/list/index';
+// import NewPicText from '../activityType/picText/new/index';
+
 const MyLoadingComponent = ({ isLoading, error }) => {
     // Handle the loading state
     if (isLoading) {
@@ -37,14 +40,29 @@ const NewRegister = Loadable({
     loading: MyLoadingComponent
 });
 
+const PicTextList = Loadable({
+    loader: () => import('../activityType/picText/list/index'),
+    loading: MyLoadingComponent
+});
+const NewPicText = Loadable({
+    loader: () => import('../activityType/picText/new/index'),
+    loading: MyLoadingComponent
+});
+
 const NewDrag = Loadable({
     loader: () => import('../activityType/dragDemo/new/index'),
     loading: MyLoadingComponent
 });
+
+let allRouterList = [
+    {path:'/activity-credit-list',component:CreditList,isLeftMenu:false},
+    {path:'/activity-credit-new',component:NewCredit,isLeftMenu:false},
+    {path:'/activity-register-list',component:RegisterList,isLeftMenu:false},
+    {path:'/activity-register-new',component:NewRegister,isLeftMenu:false},
+    {path:'/activity-picText-list',component:PicTextList,isLeftMenu:false},
+    {path:'/activity-picText-new',component:NewPicText,isLeftMenu:false},
+    {path:'/activity-drag-list',component:NewDrag,isLeftMenu:false},
+]
 export {
-    CreditList,
-    NewCredit,
-    RegisterList,
-    NewRegister,
-    NewDrag
+    allRouterList
 }

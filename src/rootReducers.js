@@ -12,6 +12,9 @@ import NewDrag from './app/activityType/dragDemo/new/index.reducer'
 import RegisterList from './app/activityType/register/list/index.reducer'
 import NewRegister from './app/activityType/register/new/index.reducer'
 
+import PicTextList from './app/activityType/picText/list/index.reducer'
+import NewPicText from './app/activityType/picText/new/index.reducer'
+
 export default combineReducers({
   Login,
   Fetch,
@@ -21,5 +24,7 @@ export default combineReducers({
     NewCredit,
     RegisterList,
     NewRegister,
-    NewDrag
+    NewDrag,
+    PicTextList,
+    NewPicText
 });

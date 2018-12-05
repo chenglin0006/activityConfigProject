@@ -3,6 +3,7 @@ import {Form, Input, Button, Select, DatePicker, InputNumber, Checkbox, Switch, 
 import CascaderShop from '../cascaderShop/index';
 import Cascader from '../cascader/index';
 import PicturesWall from '../uploadImage/index';
+import PicTextModel from '../picTextModel/index'
 import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
 import './index.less';
@@ -259,6 +260,14 @@ export default class New extends Component {
             handleChange={this.props.handleChange}
           />
         )
+      } else if(option.type === 'picTextModel'){
+          return (
+              <PicTextModel
+                  form = {this.props.form}
+                  key={i}
+                  inputListConfig = {this.props.inputListConfig}
+              />
+          )
       } else if(option.type =='button'){
           return <span key={i} className={option.isHide?'hide':''}><Button key={i} size={option.size} type={option.buttonType} style={option.style} onClick={
               ()=>{
