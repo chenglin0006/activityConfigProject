@@ -17,7 +17,6 @@ export default class picTextModel extends Component {
         this._renderList = this._renderList.bind(this);
         this._addItemFun = this._addItemFun.bind(this);
         this._removeItemFun = this._removeItemFun.bind(this);
-        this._handleChange = this._handleChange.bind(this);
         this._getFormItem = this._getFormItem.bind(this);
         this._getFields = this._getFields.bind(this);
         this.refreshListFun = this.refreshListFun.bind(this);
@@ -25,24 +24,25 @@ export default class picTextModel extends Component {
         this.state={
             listData:[
                 {
-                    flag:1,
+                    flag:0,
                     list:[{
-                        id:'modelType',
+                        id:'modelType-0',
                         type:'select',
                         data:[{name:'图片',id:2},{name:'文案',id:1}],
                         name:'模块类型'
                     },{
-                        id:'area',
+                        id:'area-0',
                         type:'textarea',
                         name:'文本内容',
                         isHide:true
                     },{
-                        id:'img1',
+                        id:'img-0',
                         type:'uploadImg',
                         name:'选择图片',
+                        fileList:[],
                         isHide:true
                     },{
-                        id: 'weight',
+                        id: 'weight-0',
                         name: '权重',
                         isRequired: true,
                         type:'number',
@@ -59,32 +59,45 @@ export default class picTextModel extends Component {
     }
 
     refreshListFun(list,id){
-        debugger
         console.log(list,id);
+        let data = this.state.listData;
+        let flag = id.split('-')[1];
+        data.forEach((ele,index)=>{
+            if(ele.flag==flag){
+                ele.list.forEach((item)=>{
+                    if(item.id==id){
+                        item.fileList = list;
+                    }
+                })
+            }
+        })
+        this.props.refresh(data)
     }
 
     _addItemFun(){
         let data = this.state.listData;
+        let flag = new Date().getTime()
         let nullObj =
             {
-                flag: new Date().getTime(),
+                flag: flag,
                 list:[{
-                    id:'modelType'+'-'+data.length+1,
+                    id:'modelType'+'-'+flag,
                     type:'select',
                     data:[{name:'图片',id:2},{name:'文案',id:1}],
                     name:'模块类型',
                 },{
-                    id:'area'+'-'+data.length+1,
+                    id:'area'+'-'+flag,
                     type:'textarea',
                     name:'文本内容',
                     isHide:true
                 },{
-                    id:'img1'+'-'+data.length+1,
+                    id:'img1'+'-'+flag,
                     type:'uploadImg',
                     name:'选择图片',
+                    fileList:[],
                     isHide:true
                 },{
-                    id: 'weight'+'-'+data.length+1,
+                    id: 'weight'+'-'+flag,
                     name: '权重',
                     isRequired: true,
                     type:'number',
@@ -106,16 +119,6 @@ export default class picTextModel extends Component {
             }
         })
         this.setState({listData:data});
-    }
-
-    _handleChange(e,flag,type){
-        let data = Util.deepClone(this.props.inputListConfig.listData);
-        data.forEach((ele,index)=>{
-            if(ele.flag === flag){
-                ele[type]=e.target.value;
-            }
-        })
-        this.props.inputListConfig.changeInputListFun(data);
     }
 
     _getFormItem(option) {
@@ -186,7 +189,7 @@ export default class picTextModel extends Component {
                         {this._getFields(ele.list)}
                         <div>
                             <span className={`action-span add`} onClick={this._addItemFun}>+</span>
-                            <span className={`action-span minus`} onClick={()=>this._removeItemFun(ele)}>-</span>
+                            <span className={`action-span minus ${this.state.listData.length==1?'hide':''}`} onClick={()=>this._removeItemFun(ele)}>-</span>
                         </div>
                     </div>
                 )
@@ -218,12 +221,4 @@ export default class picTextModel extends Component {
             <div className='input-list-div'>{this._renderList(data)}</div>
         )
     }
-}
-
-picTextModel
-    .propTypes = {
-    inputTitle1: PropTypes.string,
-    inputTitle2: PropTypes.string,
-    changeInputListFun:PropTypes.func,
-    limitNumber:PropTypes.number
 }

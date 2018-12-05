@@ -14,25 +14,16 @@ const WrappedAdvancedNew=Form.create()(New);
 class NewPicText extends Component {
     constructor(props) {
         super(props);
-        this._changePanoramaList = this._changePanoramaList.bind(this);
+        this.refresh = this.refresh.bind(this);
         this.state = {
             id:0,
-            inputListConfig:{
-                listData:[{name:'',url:''}],
-                limitNumber:10,
-                inputTitle1:'全景图名称',
-                inputTitle2:'全景图链接',
-                changeInputListFun:this._changePanoramaList
-            },
             type:'' //''==新建，detail=详情, edit=编辑
         }
     }
 
-    _changePanoramaList(list){
-        let inputListConfig = this.state.inputListConfig;
-        inputListConfig.listData = list
-        this.setState({
-            inputListConfig:inputListConfig
+    refresh(data){
+        newData.forEach((ele,index)=>{
+            ele.data = data;
         })
     }
 
@@ -131,8 +122,7 @@ class NewPicText extends Component {
                     history={this.props.history}
                     actionButtons = {actionButtons}
                     generateFun={this._generateFun}
-                    changeInputListFun={this._changePanoramaList}
-                    inputListConfig={this.state.inputListConfig}
+                    refresh={this.refresh}
                 />
                 <Loader spinning={this.props.Fetch.spinning || false} />
             </div>

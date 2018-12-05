@@ -92,17 +92,14 @@ export default class New extends Component {
                             values[data.id] = data.fileList[0] && data.fileList[0].url ||'';
                         }
                     }
-                    if (data.type === 'inputList') {
-                        let list = this.props.inputListConfig.listData || [];
-                        list.forEach((item)=>{
-                            if(!item.url || !item.name){
-                                errorStatus = true;
-                                Toast.show('请补充全景图数据');
-                                foreach.break=new Error("StopIteration");
-                                return
-                            }
-                        });
-                        values[data.id] = list;
+
+                    if (data.type=='picTextModel'){
+                        data.data.forEach((ele,index)=>{
+                            ele.list.forEach((item)=>{
+                                item.value = values[item.id]
+                            })
+                        })
+                        values[data.id]=data.data;
                     }
                     if (data.type === 'rangedatepicker'){
                         let arry = [];
@@ -228,6 +225,11 @@ export default class New extends Component {
             {option.data && option.data.map((item,key) => <Radio key={key} value={item.id}>{item.name}</Radio>)}
         </RadioGroup>
           break;
+        case 'picTextModel':
+            return <PicTextModel
+                form = {this.props.form}
+                refresh={this.props.refresh}
+            />
       default:
         return <Input disabled={option.disabled} type={option.type} maxLength={option.maxlength} onChange={(e)=>{
             if(option.inputChangeName){
@@ -260,14 +262,6 @@ export default class New extends Component {
             handleChange={this.props.handleChange}
           />
         )
-      } else if(option.type === 'picTextModel'){
-          return (
-              <PicTextModel
-                  form = {this.props.form}
-                  key={i}
-                  inputListConfig = {this.props.inputListConfig}
-              />
-          )
       } else if(option.type =='button'){
           return <span key={i} className={option.isHide?'hide':''}><Button key={i} size={option.size} type={option.buttonType} style={option.style} onClick={
               ()=>{
