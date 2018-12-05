@@ -3,7 +3,6 @@ import {Form, Input, Button, Select, DatePicker, InputNumber, Checkbox, Switch, 
 import CascaderShop from '../cascaderShop/index';
 import Cascader from '../cascader/index';
 import PicturesWall from '../uploadImage/index';
-import PicTextModel from '../picTextModel/index'
 import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
 import './index.less';
@@ -93,14 +92,6 @@ export default class New extends Component {
                         }
                     }
 
-                    if (data.type=='picTextModel'){
-                        data.data.forEach((ele,index)=>{
-                            ele.list.forEach((item)=>{
-                                item.value = values[item.id]
-                            })
-                        })
-                        values[data.id]=data.data;
-                    }
                     if (data.type === 'rangedatepicker'){
                         let arry = [];
                         values[data.id]&&values[data.id].forEach((ele,index)=>{
@@ -225,11 +216,6 @@ export default class New extends Component {
             {option.data && option.data.map((item,key) => <Radio key={key} value={item.id}>{item.name}</Radio>)}
         </RadioGroup>
           break;
-        case 'picTextModel':
-            return <PicTextModel
-                form = {this.props.form}
-                refresh={this.props.refresh}
-            />
       default:
         return <Input disabled={option.disabled} type={option.type} maxLength={option.maxlength} onChange={(e)=>{
             if(option.inputChangeName){

@@ -3,30 +3,126 @@ import {Form} from 'antd';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as actions from './index.action';
-import New from '../../../components/new/index';
+import PicTextNew from './pixTextNew';
 import * as Util from '../../../../util/';
 import Loader from '../../../../components/loader/';
-import {newData} from './data';
 import Toast from "../../../../components/prompt/toast";
 
-const WrappedAdvancedNew=Form.create()(New);
+var selectData = [{name:'图片',id:2},{name:'文字',id:1}]
+var newData = [
+    {
+        id: 'add',
+        name: '+',
+        type:'button',
+        clickHandleName:'addFun',
+        size:'small',
+        buttonType:'primary',
+        style:{marginTop:"20px",display:'block'},
+    },
+    {
+        id:'model-1',
+        type:'select',
+        data:selectData,
+        name:'内容模型1'
+    },
+    {
+        id:'input-1',
+        type:'input',
+        name:'文案1',
+        isHide:true
+    },
+    {
+        id:'img-1',
+        type:'uploadImg',
+        name:'图片1',
+        fileList:[],
+        isHide:true
+    },
+    {
+        id:'weight-1',
+        type:'number',
+        name:'权重'
+    },
+    {
+        id: 'delete-1',
+        name: '-',
+        type:'button',
+        clickHandleName:'deleteFun',
+        size:'small',
+        buttonType:'primary',
+        style:{marginTop:"20px"},
+    },
+]
+const WrappedAdvancedNew=Form.create()(PicTextNew);
 
 class NewPicText extends Component {
     constructor(props) {
         super(props);
         this.refresh = this.refresh.bind(this);
+        this.deleteFun = this.deleteFun.bind(this);
+        this.addFun = this.addFun.bind(this);
         this.state = {
             id:0,
             type:'' //''==新建，detail=详情, edit=编辑
         }
     }
 
-    refresh(data){
+    refresh(list,id){
         newData.forEach((ele,index)=>{
-            ele.data = data;
+            if(ele.id==id){
+                ele.fileList = list;
+            }
         })
     }
 
+    addFun(){
+        let flag = new Date().getTime()
+        let nullObj = [{
+            id:'model-'+flag,
+            type:'select',
+            data:selectData,
+            name:'内容模型'
+        },
+        {
+            id:'input-'+flag,
+            type:'input',
+            name:'文案',
+            isHide:true
+        },
+        {
+            id:'img-'+flag,
+            type:'uploadImg',
+            name:'图片',
+            fileList:[],
+            isHide:true
+        },{
+                id:'weight-'+flag,
+                type:'number',
+                name:'权重'
+            },{
+                id: 'delete-'+flag,
+                name: '-',
+                type:'button',
+                clickHandleName:'deleteFun',
+                size:'small',
+                buttonType:'primary',
+                style:{marginTop:"20px"},
+            }]
+        newData = newData.concat(nullObj);
+        this.setState({})
+    }
+    deleteFun(obj,id){
+        console.log(id);
+        let flag = id.split('-')[1];
+        let list = []
+        newData.forEach((ele,index)=>{
+            if(!ele.id.endsWith('-'+flag)){
+                list.push(ele);
+            }
+        })
+        newData = list;
+        this.setState({})
+    }
 
     componentDidMount(){
         let id = Util.getUrlArg('id')||0;
@@ -113,6 +209,31 @@ class NewPicText extends Component {
             actionButtons.shift();
         }
         console.log(newData,'====')
+
+        newData.forEach((ele,index)=>{
+            if(ele.type=='select'){
+                let flag = ele.id.split('-')[1];
+                ele.onChange = ((value)=>{
+
+                    newData.forEach((item)=>{
+                        if(item.id==('input-'+flag)){
+                            if(value==1){
+                                item.isHide = false;
+                            } else {
+                                item.isHide = true;
+                            }
+                        } else if(item.id==('img-'+flag)){
+                            if(value==2){
+                                item.isHide = false;
+                            } else {
+                                item.isHide = true;
+                            }
+                        }
+                    })
+                })
+
+            }
+        })
         return (
             <div>
                 <WrappedAdvancedNew
@@ -121,8 +242,9 @@ class NewPicText extends Component {
                     detailData={this.state.id?this.props.NewPicText.getDetailPicTextData:null}
                     history={this.props.history}
                     actionButtons = {actionButtons}
-                    generateFun={this._generateFun}
-                    refresh={this.refresh}
+                    refreshListFun={this.refresh}
+                    deleteFun={this.deleteFun}
+                    addFun={this.addFun}
                 />
                 <Loader spinning={this.props.Fetch.spinning || false} />
             </div>
