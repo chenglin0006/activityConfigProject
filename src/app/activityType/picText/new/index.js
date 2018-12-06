@@ -17,31 +17,35 @@ var newData = [
         clickHandleName:'addFun',
         size:'small',
         buttonType:'primary',
-        style:{marginTop:"20px",display:'block'},
+        className:'block-div',
+        style:{marginTop:"20px"},
     },
     {
         id:'model-1',
         type:'select',
         data:selectData,
-        name:'内容模型1'
+        name:'内容模型1',
+        className:'block-div',
     },
     {
         id:'input-1',
         type:'input',
         name:'文案1',
-        isHide:true
+        isHide:true,
+        className:'block-div',
     },
     {
         id:'img-1',
         type:'uploadImg',
         name:'图片1',
         fileList:[],
-        isHide:true
+        isHide:true,
+        className:'block-div',
     },
     {
         id:'weight-1',
         type:'number',
-        name:'权重'
+        name:'权重',
     },
     {
         id: 'delete-1',
@@ -81,24 +85,27 @@ class NewPicText extends Component {
             id:'model-'+flag,
             type:'select',
             data:selectData,
-            name:'内容模型'
+            name:'内容模型',
+            className:'block-div',
         },
         {
             id:'input-'+flag,
             type:'input',
             name:'文案',
-            isHide:true
+            isHide:true,
+            className:'block-div',
         },
         {
             id:'img-'+flag,
             type:'uploadImg',
             name:'图片',
             fileList:[],
-            isHide:true
+            isHide:true,
+            className:'block-div',
         },{
                 id:'weight-'+flag,
                 type:'number',
-                name:'权重'
+                name:'权重',
             },{
                 id: 'delete-'+flag,
                 name: '-',
