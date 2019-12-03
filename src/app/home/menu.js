@@ -19,11 +19,11 @@ export let mockmenu = [
                 icon:'appstore',
                 url:'/activity-picText-list'
             },
-            // {
-            //     name:'拖拽demo',
-            //     icon:'appstore',
-            //     url:'/activity-drag-list'
-            // }
+            {
+                name:'拖拽demo',
+                icon:'appstore',
+                url:'/activity-drag-list'
+            }
         ]
 	}
 ]

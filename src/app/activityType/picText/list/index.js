@@ -128,9 +128,9 @@ class PicTextList extends Component {
                 render: (text, record) => {
                     return (
                         <div>
-                            <Link to={'./new?type=detail&id='+record.id}>详情</Link>
+                            <Link to={'/activity-picText-new?type=detail&id='+record.id}>详情</Link>
                             <Divider type="vertical"/>
-                            <Link to={'./new?type=edit&id='+record.id}>编辑</Link>
+                            <Link to={'/activity-picText-new?type=edit&id='+record.id}>编辑</Link>
                         </div>
                     )
                 }
