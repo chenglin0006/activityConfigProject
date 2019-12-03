@@ -1,10 +1,12 @@
+import * as Util from '../../../../util/';
 export const applyDrag = (arr, dragResult) => {
-  debugger
+    debugger
     const { removedIndex, addedIndex, payload } = dragResult;
     if (removedIndex === null && addedIndex === null) return arr;
   
     const result = [...arr];
-    let itemToAdd = payload;
+    let itemToAdd = Util.deepClone(payload);
+    itemToAdd.id = itemToAdd.id+'-'+new Date().getTime();
   
     if (removedIndex !== null) {
       itemToAdd = result.splice(removedIndex, 1)[0];
@@ -24,3 +26,9 @@ export const applyDrag = (arr, dragResult) => {
     }
     return result;
   };
+
+  export const deleteItems = (arr, item) => {
+      return arr.filter((ele)=>{
+        return ele.id != item.id
+      })
+  }
