@@ -6,7 +6,11 @@ import './index.less'
 
 const groupStyle = {
   marginLeft: '50px',
-  flex: 1
+  flex: 1,
+  minHeight: '100px',
+  border:'solid 1px #e1e1e1',
+  padding:'10px',
+  marginRight:'10px'
 }
 
 class Copy extends Component {
