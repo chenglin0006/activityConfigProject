@@ -7,10 +7,6 @@ import './index.less'
 const groupStyle = {
   marginLeft: '50px',
   flex: 1,
-  minHeight: '100px',
-  border:'solid 1px #e1e1e1',
-  padding:'10px',
-  marginRight:'10px'
 }
 
 class Copy extends Component {
@@ -54,19 +50,19 @@ class Copy extends Component {
           </Container>
         </div>
         <div style={groupStyle}>
-          <Container groupName="1" getChildPayload={i => this.state.items2[i]} onDrop={e => this.setState({ items2: applyDrag(this.state.items2, e) })}>
+          <Container style={{minHeight:'300px'}} groupName="1" getChildPayload={i => this.state.items2[i]} onDrop={e => this.setState({ items2: applyDrag(this.state.items2, e) })}>
             {
               this.state.items2.map((p, i) => {
                 return (
-                  <Draggable key={i}>
-                    <div className={"draggable-item "+(p.id===selectItem.id?'select':'')} onClick={()=>{
-                        this.setState({selectItem:p})
-                    }}>
-                      {p.data}-
-                      <span ref={this.refCb} onClick={e => 
-                         this._deleteItem(e,p)}>删除</span>
-                    </div>
-                  </Draggable>
+                    <Draggable key={i}>
+                        <div className={"draggable-item "+(p.id===selectItem.id?'select':'')} onClick={()=>{
+                            this.setState({selectItem:p})
+                        }}>
+                        {p.data}-
+                        <span ref={this.refCb} onClick={e => 
+                            this._deleteItem(e,p)}>删除</span>
+                        </div>
+                    </Draggable>
                 );
               })
             }
